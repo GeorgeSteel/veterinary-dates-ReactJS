@@ -8,6 +8,19 @@ export default class App extends Component {
     dates: []
   }
 
+  componentDidMount() {
+    const datesLS = localStorage.getItem('dates');
+    if (datesLS) {
+      this.setState({
+        dates: JSON.parse(datesLS)
+      })
+    }
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem('dates', JSON.stringify(this.state.dates));
+  }
+
   createDate = (newDate) => {
     const dates = [ ...this.state.dates, newDate ];
 
