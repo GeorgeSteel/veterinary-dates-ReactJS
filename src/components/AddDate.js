@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import uuid from 'uuid';
 
 export default class AddDate extends Component {
-    state = {};
+    state = {
+        error: false
+    };
 
     // refs
     namePetRef = React.createRef();
@@ -19,19 +21,29 @@ export default class AddDate extends Component {
               date = this.dateRef.current.value,
               hour = this.hourRef.current.value,
               symptoms = this.symptomsRef.current.value;
-        
-        const newDate = {
-            id: uuid(),
-            pet,
-            owner,
-            date,
-            hour,
-            symptoms
-        }
 
-        this.props.createDate(newDate);
+        if (!pet || !owner || !date || !hour || !symptoms) {
+            this.setState({
+                error: true
+            });
+        } else {
+            const newDate = {
+                id: uuid(),
+                pet,
+                owner,
+                date,
+                hour,
+                symptoms
+            }
+    
+            this.props.createDate(newDate);
+    
+            e.currentTarget.reset();
 
-        e.currentTarget.reset();
+            this.setState({
+                error: false
+            });
+        }       
     }
   
     render() {
@@ -77,6 +89,7 @@ export default class AddDate extends Component {
                             </div>
                         </div>
                     </form>
+                    { this.state.error ? <div className="alert alert-danger text-center">All fields are required</div> : null }
                 </div>
             </div>
         )

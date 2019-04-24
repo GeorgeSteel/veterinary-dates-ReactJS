@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Header from './Header';
 import AddDate from './AddDate';
+import ListDates from './ListDates';
 
 export default class App extends Component {
   state = {
@@ -9,7 +10,7 @@ export default class App extends Component {
 
   createDate = (newDate) => {
     const dates = [ ...this.state.dates, newDate ];
-    
+
     this.setState({
       dates
     });
@@ -17,16 +18,31 @@ export default class App extends Component {
     console.log(dates);
   }
 
+  deleteDate = (id) => {
+    const currentDates = [...this.state.dates];
+    const dates = currentDates.filter(date => date.id !== id);
+
+    this.setState({
+      dates
+    });
+  }
+
   render() {
     return (
-      <div className="Container">
+      <div className="container">
         <Header
           title="Veterinary Patient Manager"
         />
         <div className="row">
-          <div className="col-md-6 m-5">
+          <div className="col-md-6">
             <AddDate
               createDate={ this.createDate }
+            />
+          </div>
+          <div className="col-md-6">
+            <ListDates
+              dates={ this.state.dates }
+              deleteDate={ this.deleteDate }
             />
           </div>
         </div>
