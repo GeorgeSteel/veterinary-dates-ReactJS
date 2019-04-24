@@ -3,9 +3,18 @@ import Header from './Header';
 import AddDate from './AddDate';
 
 export default class App extends Component {
+  state = {
+    dates: []
+  }
 
-  createDate = () => {
-    console.log('from App.js');
+  createDate = (newDate) => {
+    const dates = [ ...this.state.dates, newDate ];
+    
+    this.setState({
+      dates
+    });
+
+    console.log(dates);
   }
 
   render() {
