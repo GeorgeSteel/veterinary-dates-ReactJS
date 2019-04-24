@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class Date extends Component {
 
@@ -23,4 +24,16 @@ export default class Date extends Component {
         </div>
         )
     }
+}
+
+Date.propTypes = {
+    info: PropTypes.shape({
+        date: PropTypes.string.isRequired,
+        hour: PropTypes.string.isRequired,
+        owner: PropTypes.string.isRequired,
+        pet: PropTypes.string.isRequired,
+        symptoms: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired
+    }),
+    deleteDate: PropTypes.func.isRequired
 }
