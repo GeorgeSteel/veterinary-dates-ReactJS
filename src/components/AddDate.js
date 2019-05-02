@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 // Redux
 import { connect } from 'react-redux';
 import { addDates } from '../actions/datesActions';
+import { showError } from '../actions/errorsActions';
 
 class AddDate extends Component {
-    state = {
-        error: false
-    };
 
     // refs
     namePetRef = React.createRef();
@@ -27,9 +25,7 @@ class AddDate extends Component {
               symptoms = this.symptomsRef.current.value;
 
         if (!pet || !owner || !date || !hour || !symptoms) {
-            this.setState({
-                error: true
-            });
+            this.props.showError(true);
         } else {
             const newDate = {
                 id: uuid(),
@@ -44,9 +40,7 @@ class AddDate extends Component {
     
             e.currentTarget.reset();
 
-            this.setState({
-                error: false
-            });
+            this.props.showError(false);
         }       
     }
   
@@ -93,7 +87,7 @@ class AddDate extends Component {
                             </div>
                         </div>
                     </form>
-                    { this.state.error ? <div className="alert alert-danger text-center">All fields are required</div> : null }
+                    { this.props.error ? <div className="alert alert-danger text-center">All fields are required</div> : null }
                 </div>
             </div>
         )
@@ -105,7 +99,8 @@ AddDate.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    dates: state.dates.dates
+    dates: state.dates.dates,
+    error: state.error.error
 });
 
-export default connect(mapStateToProps, { addDates }) (AddDate);
+export default connect(mapStateToProps, { addDates, showError }) (AddDate);
