@@ -11,3 +11,9 @@ export const addDates = (date) => {
         payload: date
     }
 }
+export const deleteDate = (id) => {
+    return {
+        type: DELETE_DATE,
+        payload: id
+    }
+}

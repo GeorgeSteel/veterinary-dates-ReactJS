@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+// Redux
+import { connect } from 'react-redux';
+import { deleteDate } from '../actions/datesActions';
 
-export default class Date extends Component {
+class Date extends Component {
 
     delete = () => {
         this.props.deleteDate(this.props.data.id);
@@ -37,3 +40,5 @@ Date.propTypes = {
     }),
     deleteDate: PropTypes.func.isRequired
 }
+
+export default connect(null, { deleteDate }) (Date)
