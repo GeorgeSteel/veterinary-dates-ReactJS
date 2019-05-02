@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import Header from './Header';
 import AddDate from './AddDate';
 import ListDates from './ListDates';
+// Redux
+import { Provider } from 'react-redux';
+import store from '../store';
 
 export default class App extends Component {
-  state = {
-    dates: []
-  }
 
   componentDidMount() {
     const datesLS = localStorage.getItem('dates');
@@ -27,8 +27,6 @@ export default class App extends Component {
     this.setState({
       dates
     });
-
-    console.log(dates);
   }
 
   deleteDate = (id) => {
@@ -42,24 +40,25 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <Header
-          title="Veterinary Patient Manager"
-        />
-        <div className="row">
-          <div className="col-md-6">
-            <AddDate
-              createDate={ this.createDate }
-            />
-          </div>
-          <div className="col-md-6">
-            <ListDates
-              dates={ this.state.dates }
-              deleteDate={ this.deleteDate }
-            />
+      <Provider store={store}>
+        <div className="container">
+          <Header
+            title="Veterinary Patient Manager"
+          />
+          <div className="row">
+            <div className="col-md-6">
+              <AddDate
+                createDate={ this.createDate }
+              />
+            </div>
+            <div className="col-md-6">
+              <ListDates
+                deleteDate={ this.deleteDate }
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </Provider>      
     )
   }
 }

@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
 import Date from './Date';
 import PropTypes from 'prop-types';
+// Redux
+import { connect } from 'react-redux';
+import { getDates } from '../actions/datesActions';
 
-export default class ListDates extends Component {
+class ListDates extends Component {
+
+  componentDidMount() {
+    this.props.getDates();
+  }
+
   render() {
     return (
       <div className="card mt-5">
@@ -27,3 +35,9 @@ ListDates.propTypes = {
   dates: PropTypes.array.isRequired,
   deleteDate: PropTypes.func.isRequired
 }
+
+const mapStateToProps = state => ({
+  dates: state.dates.dates
+});
+
+export default connect(mapStateToProps, { getDates }) (ListDates);
