@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
 import PropTypes from 'prop-types';
+// Redux
+import { connect } from 'react-redux';
+import { addDates } from '../actions/datesActions';
 
-export default class AddDate extends Component {
+class AddDate extends Component {
     state = {
         error: false
     };
@@ -37,7 +40,7 @@ export default class AddDate extends Component {
                 symptoms
             }
     
-            this.props.createDate(newDate);
+            this.props.addDates(newDate);
     
             e.currentTarget.reset();
 
@@ -98,5 +101,11 @@ export default class AddDate extends Component {
 }
 
 AddDate.propTypes = {
-    createDate: PropTypes.func.isRequired
+    addDates: PropTypes.func.isRequired
 }
+
+const mapStateToProps = state => ({
+    dates: state.dates.dates
+});
+
+export default connect(mapStateToProps, { addDates }) (AddDate);

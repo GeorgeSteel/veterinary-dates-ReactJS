@@ -21,14 +21,6 @@ export default class App extends Component {
     localStorage.setItem('dates', JSON.stringify(this.state.dates));
   }
 
-  createDate = (newDate) => {
-    const dates = [ ...this.state.dates, newDate ];
-
-    this.setState({
-      dates
-    });
-  }
-
   deleteDate = (id) => {
     const currentDates = [...this.state.dates];
     const dates = currentDates.filter(date => date.id !== id);
@@ -47,9 +39,7 @@ export default class App extends Component {
           />
           <div className="row">
             <div className="col-md-6">
-              <AddDate
-                createDate={ this.createDate }
-              />
+              <AddDate/>
             </div>
             <div className="col-md-6">
               <ListDates
