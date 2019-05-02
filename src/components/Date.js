@@ -41,4 +41,4 @@ Date.propTypes = {
     deleteDate: PropTypes.func.isRequired
 }
 
-export default connect(null, { deleteDate }) (Date)
+export default connect(null, { deleteDate }) (Date);

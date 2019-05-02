@@ -8,28 +8,6 @@ import store from '../store';
 
 export default class App extends Component {
 
-  componentDidMount() {
-    const datesLS = localStorage.getItem('dates');
-    if (datesLS) {
-      this.setState({
-        dates: JSON.parse(datesLS)
-      })
-    }
-  }
-
-  componentDidUpdate() {
-    localStorage.setItem('dates', JSON.stringify(this.state.dates));
-  }
-
-  deleteDate = (id) => {
-    const currentDates = [...this.state.dates];
-    const dates = currentDates.filter(date => date.id !== id);
-
-    this.setState({
-      dates
-    });
-  }
-
   render() {
     return (
       <Provider store={store}>
@@ -42,9 +20,7 @@ export default class App extends Component {
               <AddDate/>
             </div>
             <div className="col-md-6">
-              <ListDates
-                deleteDate={ this.deleteDate }
-              />
+              <ListDates/>
             </div>
           </div>
         </div>
